@@ -1,0 +1,41 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.javaboy.batch_insert.mapper.UserMapper">
+
+    <insert id="addUserOneByOne">
+        insert into user (username, address, password)
+        values (#{username}, #{address}, #{password})
+    </insert>
+    <insert id="addByOneSQL">
+        insert into user (username,address,password) values
+        <foreach collection="users" item="user" separator=",">
+            (#{user.username},#{user.address},#{user.password})
+        </foreach>
+    </insert>
+
+
+    <insert id="addUserOneByOneBig">
+        insert into user_big (username, address, password,
+                              name1, name2, name3, name4, name5, name6, name7, name8, name9, name10
+            , name11, name12, name13, name14, name15, name16, name17, name18, name19, name20)
+        values ( #{username}, #{address}, #{password}
+               , #{name1}, #{name2}, #{name3}, #{name4}, #{name5}, #{name6}, #{name7}, #{name8}, #{name9}, #{name10}
+               , #{name11}, #{name12}, #{name13}, #{name14}, #{name15}, #{name16}, #{name17}, #{name18}, #{name19}
+               , #{name20})
+    </insert>
+    <insert id="addByOneSQLBig">
+        insert into user_big (username,address,password,
+        name1, name2, name3, name4, name5, name6, name7, name8, name9,name10
+        , name11, name12, name13, name14, name15, name16, name17, name18, name19, name20) values
+        <foreach collection="users" item="user" separator=",">
+            (#{user.username},#{user.address},#{user.password},
+            #{user.name1}, #{user.name2}, #{user.name3}, #{user.name4}, #{user.name5}, #{user.name6}, #{user.name7},
+            #{user.name8}, #{user.name9}, #{user.name10}
+            , #{user.name11}, #{user.name12}, #{user.name13}, #{user.name14}, #{user.name15}, #{user.name16},
+            #{user.name17}, #{user.name18}, #{user.name19}
+            , #{user.name20}
+            )
+        </foreach>
+    </insert>
+</mapper>
